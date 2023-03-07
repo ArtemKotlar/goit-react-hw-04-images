@@ -13,16 +13,22 @@ export class Modal extends Component {
   }
 
   closeModal = event => {
-    if (event.code === 'Escape' || event.currentTarget !== event.target) {
+    if (event.code === 'Escape') {
       this.props.closeModal();
       return;
+    }
+  };
+
+  handleBackdropClick = e => {
+    if (e.currentTarget === e.target) {
+      this.props.closeModal();
     }
   };
 
   render() {
     const { tags, modalImg } = this.props;
     return createPortal(
-      <Overlay onClick={this.closeModal}>
+      <Overlay onClick={this.handleBackdropClick}>
         <ModalWindow>
           <img src={modalImg} alt={tags} />
         </ModalWindow>
